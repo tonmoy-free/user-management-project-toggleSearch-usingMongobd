@@ -17,7 +17,7 @@ const Users = ({ user, index, datas, setDatas }) => {
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({newStatus})
+            body: JSON.stringify({ newStatus })
         })
             .then(res => res.json())
             .then(data => {
@@ -98,9 +98,11 @@ const Users = ({ user, index, datas, setDatas }) => {
             <td>{status}</td>
             <th>
                 <div className='flex justify-start items-center gap-1'>
-                    <button className="px-2 py-2 text-xl cursor-pointer shadow-sm hover:text-white hover:bg-[#2b2d42] rounded-lg ">
-                        <MdEdit />
-                    </button>
+                    <Link to={`/updatePatch/${_id}`}>
+                        <button className="px-2 py-2 text-xl cursor-pointer shadow-sm hover:text-white hover:bg-[#2b2d42] rounded-lg ">
+                            <MdEdit />
+                        </button>
+                    </Link>
                     <Link to={`/userDetails/${_id}`}>
                         <button className="px-2 py-2 text-xl cursor-pointer shadow-sm hover:text-white hover:bg-[#2b2d42] rounded-lg ">
                             <FaEye />

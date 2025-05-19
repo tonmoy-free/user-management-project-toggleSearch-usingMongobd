@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
 import { Link, useLoaderData, useParams } from 'react-router';
 import Swal from 'sweetalert2';
+import "react-datepicker/dist/react-datepicker.css";
+
+
 
 const UserDetails = () => {
-    const { name, _id, email, gender, status, photoUrl } = useLoaderData();
+    const { name, _id, email, gender, status, photoUrl,date } = useLoaderData();
     const { id } = useParams();
+
+
+    
 
     const handleUpdateUser = e => {
         e.preventDefault();
@@ -14,16 +21,16 @@ const UserDetails = () => {
         console.log(updatedUser);
 
         //update user on db
-        fetch(`http://localhost:3000/users/${id}`,{
-            method : 'PUT',
+        fetch(`http://localhost:3000/users/${id}`, {
+            method: 'PUT',
             headers: {
-                'content-type' : 'application/json'
+                'content-type': 'application/json'
             },
-            body:JSON.stringify(updatedUser)
+            body: JSON.stringify(updatedUser)
         })
-        .then(res=>res.json())
-        .then(data=>{
-            if (data.modifiedCount) {
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount) {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -33,7 +40,7 @@ const UserDetails = () => {
                     });
                     console.log(data);
                 }
-        })
+            })
     }
 
     return (
@@ -74,9 +81,12 @@ const UserDetails = () => {
                         <label className="label">PhotoURL</label>
                         <input type="text" name='photoUrl' className="input" placeholder="Status" defaultValue={photoUrl} />
 
+
+
                         <button type='submit' className="btn btn-outline  btn-secondary mt-4">Update User</button>
 
                     </form>
+
                 </div>
             </div>
         </div>

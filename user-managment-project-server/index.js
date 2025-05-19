@@ -87,11 +87,44 @@ async function run() {
             const updatedFields = req.body;
             const filter = { _id: new ObjectId(id) };
             const options = { upsert: true };
-            
+
             const updateDoc = {
                 $set: updatedFields
             }
             const result = await userManagementCollection.updateOne(filter, updateDoc, options);
+            res.send(result);
+        })
+
+        app.patch('/users/dateUpdate/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedFields = req.body.dateUpdate;
+            const filter = { _id: new ObjectId(id) };
+            const options = { upsert: true };
+            console.log(updatedFields);
+
+
+            // req.body theke asa puro object ti jodi db te insert korte chai as a object
+            // const updateDoc = {
+            //     $set: updatedFields
+            // }
+
+            //req.body theke asa puro object single a single a jodi insert korte chai
+            const updateDoc = {
+                $set: {
+                    hour: updatedFields.hour,
+                    date: updatedFields.date,
+                    title: updatedFields.title,
+                    day: updatedFields.day
+                }
+            }
+            const result = await userManagementCollection.updateOne(filter, updateDoc, options);
+            res.send(result);
+        })
+
+        app.get('/users/dateUpdate/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await userManagementCollection.findOne(query);
             res.send(result);
         })
 

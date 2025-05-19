@@ -6,11 +6,19 @@ import { Link, useLoaderData } from 'react-router';
 import Users from '../components/Users';
 import { AuthContext } from '../provider/AuthProvider';
 
+
+
+
+
 const Home = () => {
     const contextValue = useContext(AuthContext);
     const initialData = useLoaderData();
     const [datas, setDatas] = useState([]);
     const [search, setSearch] = useState('');
+
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDay, setSelectedDay] = useState(new Date());
+
     console.log(search);
     useEffect(() => {
         fetch(`http://localhost:3000/users?searchParams=${search}`)
@@ -36,8 +44,9 @@ const Home = () => {
                 </form>
             </div>
             <div className='mt-2'>
-               <p>Total User : {datas.length}</p>
+                <p>Total User : {datas.length}</p>
             </div>
+            
             <div>
                 <Link to='/register'>
                     <button className='mb-5 px-3 py-2 shadow-sm w-30 text-center cursor-pointer hover:text-white hover:bg-[#2b2d42] rounded-sm font-semibold'>New User</button>
